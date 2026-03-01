@@ -28,6 +28,24 @@
 	<link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css'%}">
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="{% static 'assets/sass/style.css'%}">
+	
+	<!-- Mega Menu Styles -->
+	<style>
+	.mega-menu-parent { position: relative; }
+	.mega-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: #fff; min-width: 950px; padding: 30px; display: none; grid-template-columns: repeat(3, 1fr); gap: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); border-radius: 10px; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+	.mega-menu-parent:hover .mega-menu { display: grid; opacity: 1; visibility: visible; }
+	.mega-menu-column { padding: 0 15px; border-right: 1px solid #eee; }
+	.mega-menu-column:last-child { border-right: none; }
+	.mega-menu-title { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #f5b754; display: flex; align-items: center; gap: 10px; }
+	.mega-menu-title i { color: #f5b754; font-size: 18px; }
+	.mega-menu-column ul { list-style: none; padding: 0; margin: 0; }
+	.mega-menu-column ul li { margin-bottom: 12px; }
+	.mega-menu-column ul li a { color: #555; font-size: 14px; text-decoration: none; transition: all 0.3s ease; display: flex; align-items: center; }
+	.mega-menu-column ul li a:before { content: ''; width: 6px; height: 6px; background: #ddd; border-radius: 50%; margin-right: 10px; transition: all 0.3s ease; }
+	.mega-menu-column ul li a:hover { color: #f5b754; padding-left: 5px; }
+	.mega-menu-column ul li a:hover:before { background: #f5b754; }
+	@media (max-width: 991px) { .mega-menu { position: static; transform: none; min-width: 100%; display: none !important; grid-template-columns: 1fr; box-shadow: none; padding: 15px; } .mega-menu-parent:hover .mega-menu { display: none !important; } .mega-menu-column { border-right: none; border-bottom: 1px solid #eee; padding: 15px 0; } .mega-menu-column:last-child { border-bottom: none; } }
+	</style>
 </head>
 
 <body>
@@ -40,10 +58,6 @@
 		</div>
 	</div>
 	<!-- Preloader end -->
-	<div class="cursor">
-		<div class="hide"><div id="cursor-ball"></div></div>
-        <div id="cursor-text"></div>
-    </div>
 	<!-- Dark Light Start -->
 
 	<!-- Dark Light End -->
@@ -138,101 +152,55 @@
 							<li class=""><a href="{% url 'haqqimizda'%}">Haqqımızda</a>
 
 							</li>
-							<li class="menu-item-has-children"><a href="{% url 'xidmetler'%}">XİDMƏTLƏR</a>
-                                <ul class="sub-menu wide-menu">
-                                    <li class="menu-item-has-children">
-                                        <a href="{% url 'xidmetler'%}">BETON VƏ YAPI İŞLƏRİ</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{% url 'xidmetler'%}">Betonun Qarışdırılması və Dökülməsi</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Beton Plitələrin Döşənməsi</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Beton Bazasının Hazırlanması</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Beton Armaturun Quraşdırılması</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Beton Təmiri və Yenidənqurma</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Beton Qatlarının Təmiri və Bərpası</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Beton Lövhələrin Quraşdırılması</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Beton Divarların Tikilməsi</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Beton Dəmir Konstruksiyalarının Hazırlanması</a></li>
+							<li class="menu-item-has-children mega-menu-parent"><a href="{% url 'xidmetler'%}">XİDMƏTLƏR</a>
+                                <div class="mega-menu">
+                                    <div class="mega-menu-column">
+                                        <h4 class="mega-menu-title"><i class="fas fa-industry"></i> Sənaye üçün</h4>
+                                        <ul>
+                                            <li><a href="{% url 'xidmetler'%}">Sənaye Binaları Tikintisi</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Anbar və Logistika Mərkəzləri</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Zavod və Fabrik İnşaatı</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Metal Konstruksiyalar</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Sənaye Ventilyasiyası</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Elektrik Sistemləri</a></li>
                                         </ul>
-                                    </li>
-                                    
-                                    <li class="menu-item-has-children">
-                                        <a href="{% url 'xidmetler'%}">FASAD VƏ XARİCİ İŞLƏR</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{% url 'xidmetler'%}">Seramik və Təbii Daş Fasad Örtükləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Kompozit və Metal Fasad Sistemləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Alüminium Fasad Sistemi</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Şüşə Fasad Örtükləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Havalandırılan Fasadlar</a></li>
+                                    </div>
+                                    <div class="mega-menu-column">
+                                        <h4 class="mega-menu-title"><i class="fas fa-home"></i> İndividual Xidmətlər</h4>
+                                        <ul>
+                                            <li><a href="{% url 'xidmetler'%}">Mənzil Təmiri</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Villa və Ev Tikintisi</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">İnteryer Dizayn</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Mətbəx Dizaynı</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Hamam Təmiri</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Balkon Şüşələnməsi</a></li>
                                         </ul>
-                                    </li>
-                                    
-                                    <li class="menu-item-has-children">
-                                        <a href="{% url 'xidmetler'%}">PƏNCƏRƏ VƏ QAPI SİSTEMLƏRİ</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{% url 'xidmetler'%}">PVC və Alüminium</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">İzolyasiya olunmuş və Yanğına davamlı</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Sürgülü və Cam Balkon Sistemləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Hebeschiebe Sürgülü Sistemləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Şüşə Ara Kəsmələri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Şüşə Tavan Sistemləri</a></li>
+                                    </div>
+                                    <div class="mega-menu-column">
+                                        <h4 class="mega-menu-title"><i class="fas fa-building"></i> Development</h4>
+                                        <ul>
+                                            <li><a href="{% url 'xidmetler'%}">Yaşayış Kompleksləri</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Biznes Mərkəzləri</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Ticarət Mərkəzləri</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Otel və Resort</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Layihələndirmə</a></li>
+                                            <li><a href="{% url 'xidmetler'%}">Smeta və Planlaşdırma</a></li>
                                         </ul>
-                                    </li>
-                                    
-                                    <li class="menu-item-has-children">
-                                        <a href="{% url 'xidmetler'%}">TİKİNTİ VƏ YENİDƏNQURMA İŞLƏRİ</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{% url 'xidmetler'%}">Divar və Tavan Təmir İşləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Sənaye və Kommersiya Binalarının Təmiri və Tikintisi</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Sahə Planlaşdırılması və Podratçı İşləri</a></li>
-                                        </ul>
-                                    </li>
-                                    
-                                    <li class="menu-item-has-children">
-                                        <a href="{% url 'xidmetler'%}">DAXİLİ TƏMİR İŞLƏRİ</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{% url 'xidmetler'%}">Laminat və Parket Döşənməsi</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Keramika və Kafel Döşəmələri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Divar Kağızlarının Vurulması</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Boya İşləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Alçıpan Tavanların Montajı</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Asma Tavanlar və Dartma Tavanlar</a></li>
-                                        </ul>
-                                    </li>
-                                    
-                                    <li class="menu-item-has-children">
-                                        <a href="{% url 'xidmetler'%}">İSTİLİK, ELEKTRİK VƏ SANTEXNİKA İŞLƏRİ</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{% url 'xidmetler'%}">İstilik və Soyutma Sistemlərinin Quraşdırılması</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Elektrik İşləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Santexnika İşləri</a></li>
-                                        </ul>
-                                    </li>
-                                    
-                                    <li class="menu-item-has-children">
-                                        <a href="{% url 'xidmetler'%}">ƏLAVƏ XİDMƏTLƏR</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{% url 'xidmetler'%}">Metal Konstruksiyalar və Məhəccərlər</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Sənaye Qapıları və Dəmir Qapılar</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Bağçılıq və Yaşıl Zonaların Təşkili</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Süni Şəlalələr və Göllər</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Mebel İstehsalı və Montajı</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Xüsusi İntyer Dizaynı</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </div>
                             </li>
-                            <li class=""><a href="{% url 'portfolio' %}">İŞLƏRİMİZ</a>
+                            <li class=""><a href="{% url 'portfolio' %}">LAYİHƏLƏRİMİZ</a>
 
                             </li>
-                            <li><a href="{% url 'qalereya'%}">Qalereya</a></li>
-                            <li><a href="{% url 'yenilikler'%}">Bloq</a></li>
+                            
+                            <li><a href="{% url 'yenilikler'%}">YENİLİKLƏR</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="header__area-menubar-right">
 
 					<div class="header__area-menubar-right-btn one">
-						<a class="build_button" href="{% url 'elaqe'%}">BİZİM ƏLAQƏ<i class="flaticon-right-up"></i></a>
+						<a class="build_button" href="{% url 'elaqe'%}">ƏLAQƏ<i class="flaticon-right-up"></i></a>
 					</div>
 					<div class="header__area-menubar-right-sidebar">
 						<div class="header__area-menubar-right-sidebar-icon">
@@ -337,7 +305,7 @@
         <div class="container">
 						 <div class="row  ">
 							 {% if xidmet.portfolios.first%}
-							  <h3 class="mt-25 mb-20">Görülən işlər</h3>
+							  <h3 class="mt-25 mb-20">LAYİHƏLƏRİMİZ</h3>
 							 {% endif%}
                {% for p in xidmet.portfolios.all%}
                 <div class="col-xl-4 col-md-6 mt-25 " >
@@ -394,8 +362,8 @@
 					</div>
 					<div class="col-lg-6">
 						<div class="subscribe__area-form wow fadeInUp" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
-							<form>
-								<input type="email" name="email" placeholder="Email ünvanı ..." style="padding-left:33px">
+							<form id="subscribe-form">
+								<input type="email" name="email" id="subscribe-email" placeholder="Email ünvanı ..." style="padding-left:33px" required>
 								<button class="build_button" type="submit">Abunə Ol</button>
 							</form>
 						</div>
@@ -463,7 +431,7 @@
 											<li><a href="{% url 'haqqimizda'%}">Şirkət Haqqında</a></li>
 											<li><a href="{% url 'xidmetler'%}">Xidmətlər</a></li>
 											<li><a href="{% url 'portfolio'%}">Görülən İşlər</a></li>
-											<li><a href="{% url 'qalereya'%}">Qalereya</a></li>
+											
 											<li><a href="{% url 'yenilikler'%}">Yeniliklər</a></li>
 											<li><a href="{% url 'elaqe'%}">Bizimlə Əlaqə</a></li>
 										</ul>
@@ -519,6 +487,17 @@
 		<svg class="scroll-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102"><path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" /> </svg>
 	</div>
 	<!-- Scroll Btn End -->
+	
+<!-- Subscription Popup -->
+<div id="subscribe-popup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;justify-content:center;align-items:center;">
+	<div style="background:#fff;padding:40px;border-radius:10px;text-align:center;max-width:400px;margin:20px;box-shadow:0 10px 30px rgba(0,0,0,0.2);">
+		<div id="popup-icon" style="font-size:50px;margin-bottom:20px;"></div>
+		<h3 id="popup-title" style="margin-bottom:15px;color:#333;"></h3>
+		<p id="popup-message" style="margin-bottom:25px;color:#666;"></p>
+		<button onclick="closeSubscribePopup()" class="build_button" style="border:none;cursor:pointer;padding:8px 22px 8px 16px;"><i class="fas fa-times"></i> Bağla</button>
+	</div>
+</div>
+
 	<!-- Main JS -->
 	<script src="{% static 'assets/js/jquery-3.6.0.min.js'%}"></script>
 	<!-- Bootstrap JS -->
@@ -547,6 +526,63 @@
 	<script src="{% static 'assets/js/split-text.js'%}"></script>
 	<!-- Custom JS -->
 	<script src="{% static 'assets/js/custom.js'%}"></script>
+	
+	<!-- Subscription Script -->
+	<script>
+	function showSubscribePopup(success, message) {
+		var popup = document.getElementById('subscribe-popup');
+		var icon = document.getElementById('popup-icon');
+		var title = document.getElementById('popup-title');
+		var msg = document.getElementById('popup-message');
+		
+		if (success) {
+			icon.innerHTML = '<i class="fas fa-check-circle" style="color:#28a745;"></i>';
+			title.textContent = 'Uğurlu!';
+		} else {
+			icon.innerHTML = '<i class="fas fa-exclamation-circle" style="color:#dc3545;"></i>';
+			title.textContent = 'Diqqət!';
+		}
+		msg.textContent = message;
+		popup.style.display = 'flex';
+	}
+	
+	function closeSubscribePopup() {
+		document.getElementById('subscribe-popup').style.display = 'none';
+	}
+	
+	document.getElementById('subscribe-popup').addEventListener('click', function(e) {
+		if (e.target === this) closeSubscribePopup();
+	});
+	
+	document.getElementById('subscribe-form').addEventListener('submit', function(e) {
+		e.preventDefault();
+		var email = document.getElementById('subscribe-email').value.trim();
+		
+		if (!email) {
+			showSubscribePopup(false, 'Zəhmət olmasa email ünvanınızı daxil edin.');
+			return;
+		}
+		
+		fetch('{% url "subscribe" %}', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': '{{ csrf_token }}'
+			},
+			body: JSON.stringify({email: email})
+		})
+		.then(response => response.json())
+		.then(data => {
+			showSubscribePopup(data.success, data.message);
+			if (data.success) {
+				document.getElementById('subscribe-email').value = '';
+			}
+		})
+		.catch(error => {
+			showSubscribePopup(false, 'Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin.');
+		});
+	});
+	</script>
 </body>
 
 </html>

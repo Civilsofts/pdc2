@@ -38,6 +38,7 @@ urlpatterns = [
     path('yenilikler/', yenilikler.yenilikler, name='yenilikler'),
     path('yenilikler/<int:id>/', yenilikler.yeniliklerdetail, name='yeniliklerdetail'),
     path('elaqe/', elaqe.elaqe, name='elaqe'),
+    path('elaqe/submit/', elaqe.contact_submit, name='contact_submit'),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

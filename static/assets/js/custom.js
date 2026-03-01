@@ -122,6 +122,72 @@
 		});
 	});
 
+	///=============  * Sənaye üçün Slider  =============\\\
+	$(document).ready(function () {
+		var swiper = new Swiper(".senaye_slide", {
+			spaceBetween: 25,
+			slidesPerView: 4,
+			speed: 1000,
+			loop: true,
+			autoplay: {
+				delay: 4000,
+				reverseDirection: false,
+				disableOnInteraction: false,
+			},
+			navigation: {
+				nextEl: '.senaye_next',
+				prevEl: '.senaye_prev',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				768: {
+					slidesPerView: 2,
+				},
+				1025: {
+					slidesPerView: 4,
+				},
+				1600: {
+					slidesPerView: 4,
+				},
+			}
+		});
+	});
+
+	///=============  * İndividual Xidmətlər Slider  =============\\\
+	$(document).ready(function () {
+		var swiper = new Swiper(".individual_slide", {
+			spaceBetween: 25,
+			slidesPerView: 4,
+			speed: 1000,
+			loop: true,
+			autoplay: {
+				delay: 4000,
+				reverseDirection: false,
+				disableOnInteraction: false,
+			},
+			navigation: {
+				nextEl: '.individual_next',
+				prevEl: '.individual_prev',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
+				768: {
+					slidesPerView: 2,
+				},
+				1025: {
+					slidesPerView: 4,
+				},
+				1600: {
+					slidesPerView: 4,
+				},
+			}
+		});
+	});
+
 	///=============  * Service Two  =============\\\
 	$(document).ready(function () {
 		var swiper = new Swiper(".services_four_slide", {
