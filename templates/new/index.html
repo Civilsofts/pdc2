@@ -30,130 +30,7 @@
 	<link rel="stylesheet" href="{% static 'assets/sass/style.css'%}">
 	
 	<!-- Mega Menu Styles -->
-	<style>
-	.mega-menu-parent {
-		position: relative;
-	}
-	
-	.mega-menu {
-		position: absolute;
-		top: 100%;
-		left: 50%;
-		transform: translateX(-50%);
-		background: #fff;
-		min-width: 950px;
-		padding: 30px;
-		display: none;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 30px;
-		box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-		border-radius: 10px;
-		z-index: 1000;
-		opacity: 0;
-		visibility: hidden;
-		transition: all 0.3s ease;
-	}
-	
-	.mega-menu-parent:hover .mega-menu {
-		display: grid;
-		opacity: 1;
-		visibility: visible;
-	}
-	
-	.mega-menu-column {
-		padding: 0 15px;
-		border-right: 1px solid #eee;
-	}
-	
-	.mega-menu-column:last-child {
-		border-right: none;
-	}
-	
-	.mega-menu-title {
-		font-size: 16px;
-		font-weight: 700;
-		color: #1a1a1a;
-		margin-bottom: 20px;
-		padding-bottom: 10px;
-		border-bottom: 2px solid #f5b754;
-		display: flex;
-		align-items: center;
-		gap: 10px;
-	}
-	
-	.mega-menu-title i {
-		color: #f5b754;
-		font-size: 18px;
-	}
-	
-	.mega-menu-column ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-	
-	.mega-menu-column ul li {
-		margin-bottom: 12px;
-	}
-	
-	.mega-menu-column ul li a {
-		color: #555;
-		font-size: 14px;
-		text-decoration: none;
-		transition: all 0.3s ease;
-		display: flex;
-		align-items: center;
-	}
-	
-	.mega-menu-column ul li a:before {
-		content: '';
-		width: 6px;
-		height: 6px;
-		background: #ddd;
-		border-radius: 50%;
-		margin-right: 10px;
-		transition: all 0.3s ease;
-	}
-	
-	.mega-menu-column ul li a:hover {
-		color: #f5b754;
-		padding-left: 5px;
-	}
-	
-	.mega-menu-column ul li a:hover:before {
-		background: #f5b754;
-	}
-	
-	@media (max-width: 991px) {
-		.mega-menu {
-			position: static;
-			transform: none;
-			min-width: 100%;
-			display: none !important;
-			grid-template-columns: 1fr;
-			box-shadow: none;
-			padding: 15px;
-		}
-		
-		.mega-menu-parent:hover .mega-menu {
-			display: none !important;
-		}
-		
-		.mega-menu-parent.active .mega-menu {
-			display: block !important;
-		}
-		
-		.mega-menu-column {
-			border-right: none;
-			border-bottom: 1px solid #eee;
-			padding: 15px 0;
-		}
-		
-		.mega-menu-column:last-child {
-			border-bottom: none;
-		}
-	}
-	</style>
+	<link rel="stylesheet" href="{% static 'assets/css/megamenu.css'%}">
 </head>
 
 <body>
@@ -259,39 +136,22 @@
 							</li>
 							<li class="menu-item-has-children mega-menu-parent"><a href="{% url 'xidmetler'%}">XİDMƏTLƏR</a>
                                 <div class="mega-menu">
+                                    {% for category in menu_categories %}
                                     <div class="mega-menu-column">
-                                        <h4 class="mega-menu-title"><i class="fas fa-industry"></i> Sənaye üçün</h4>
+                                        <h4 class="mega-menu-title">{% if category.icon_class %}<i class="{{ category.icon_class }}"></i> {% endif %}{{ category.name }}</h4>
+                                        {% if category.coming_soon %}
+                                        <p style="color: #999; font-style: italic; padding: 10px 0;">Tezliklə...</p>
+                                        {% else %}
                                         <ul>
-                                            <li><a href="{% url 'xidmetler'%}">Sənaye Binaları Tikintisi</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Anbar və Logistika Mərkəzləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Zavod və Fabrik İnşaatı</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Metal Konstruksiyalar</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Sənaye Ventilyasiyası</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Elektrik Sistemləri</a></li>
+                                            {% for item in category.items.all %}
+                                            {% if item.is_active %}
+                                            <li><a href="{% if item.url %}{{ item.url }}{% else %}{% url 'category_detail' category.slug %}{% endif %}">{{ item.name }}</a></li>
+                                            {% endif %}
+                                            {% endfor %}
                                         </ul>
+                                        {% endif %}
                                     </div>
-                                    <div class="mega-menu-column">
-                                        <h4 class="mega-menu-title"><i class="fas fa-home"></i> İndividual Xidmətlər</h4>
-                                        <ul>
-                                            <li><a href="{% url 'xidmetler'%}">Mənzil Təmiri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Villa və Ev Tikintisi</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">İnteryer Dizayn</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Mətbəx Dizaynı</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Hamam Təmiri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Balkon Şüşələnməsi</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="mega-menu-column">
-                                        <h4 class="mega-menu-title"><i class="fas fa-building"></i> Development</h4>
-                                        <ul>
-                                            <li><a href="{% url 'xidmetler'%}">Yaşayış Kompleksləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Biznes Mərkəzləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Ticarət Mərkəzləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Otel və Resort</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Layihələndirmə</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Smeta və Planlaşdırma</a></li>
-                                        </ul>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </li>
                             <li class=""><a href="{% url 'portfolio' %}">LAYİHƏLƏRİMİZ</a>

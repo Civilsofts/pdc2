@@ -1,0 +1,564 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="description" content="{{ category.short_description }}"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ category.name }} - PDC</title>
+	<link rel="icon" type="image/png" href="{% static 'assets/favicon.png'%}">
+	<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css'%}">
+	<link rel="stylesheet" href="{% static 'assets/css/fontawesome.css'%}">
+	<link rel="stylesheet" href="{% static 'assets/font/flaticon_flexitype.css'%}">
+	<link rel="stylesheet" href="{% static 'assets/css/animate.css'%}">
+	<link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css'%}">
+	<link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css'%}">
+	<link rel="stylesheet" href="{% static 'assets/sass/style.css'%}">
+	<link rel="stylesheet" href="{% static 'assets/css/megamenu.css'%}">
+</head>
+
+<body>
+	<div class="theme-loader">
+		<div class="spinner">
+			<div class="spinner-bounce one"></div>
+			<div class="spinner-bounce two"></div>
+			<div class="spinner-bounce three"></div>
+		</div>
+	</div>
+	<div class="header__area-menubar-right-search-box">
+		<form>
+			<input type="search" placeholder="Search Here.....">
+			<button type="submit"><i class="fal fa-search"></i></button>
+		</form>
+		<span class="header__area-menubar-right-search-box-icon"><i class="fal fa-times"></i></span>
+	</div>
+	<div class="header__area-menubar-right-sidebar-popup">
+		<div class="sidebar-close-btn"><i class="fal fa-times"></i></div>
+		<div class="header__area-menubar-right-sidebar-popup-logo">
+			<a href="{% url 'home'%}"> <img src="{% static 'assets/logo3.png'%}" alt="Logo-image"></a>
+		</div>
+		<p>Dizayn, smeta, planlama, şüşələnmə, fasad işləri, landşaft və bütün növ təmir-tikinti xidmətləri sahəsində peşəkar komandamızla sizə keyfiyyətli və innovativ həllər təklif edirik.</p>
+		<div class="header__area-menubar-right-sidebar-popup-contact">
+			<h4 class="mb-30">Əlaqə Məlumatları</h4>
+			<div class="header__area-menubar-right-sidebar-popup-contact-item">
+				<div class="header__area-menubar-right-sidebar-popup-contact-item-icon"><i class="flaticon-phone"></i></div>
+				<div class="header__area-menubar-right-sidebar-popup-contact-item-content">
+					<span>Telefon:</span>
+					<h6><a href="tel:+994508990110">+994508990110</a></h6>
+				</div>
+			</div>
+			<div class="header__area-menubar-right-sidebar-popup-contact-item">
+				<div class="header__area-menubar-right-sidebar-popup-contact-item-icon"><i class="flaticon-email-3"></i></div>
+				<div class="header__area-menubar-right-sidebar-popup-contact-item-content">
+					<span>Email ünvanı:</span>
+					<h6><a href="mailto:office@pdc.az">office@pdc.az</a></h6>
+				</div>
+			</div>
+			<div class="header__area-menubar-right-sidebar-popup-contact-item">
+				<div class="header__area-menubar-right-sidebar-popup-contact-item-icon"><i class="flaticon-location-1"></i></div>
+				<div class="header__area-menubar-right-sidebar-popup-contact-item-content">
+					<span>Ünvan:</span>
+					<h6><a href="https://google.com/maps" target="_blank">8 Noyabr pr. 15, 14-cü mərtəbə, ofis 90</a></h6>
+				</div>
+			</div>
+		</div>
+		<div class="header__area-menubar-right-sidebar-popup-social">
+			<ul>
+				<li><a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+				<li><a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+				<li><a href="https://tiktok.net" target="_blank"><i class="fab fa-tiktok"></i></a></li>
+				<li><a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="sidebar-overlay"></div>
+	<div class="menu__bar-popup">
+		<div class="menu__bar-popup-top">
+			<div class="logo"><a href="{% url 'home'%}"><img src="{% static 'assets/logo3.png'%}" alt="logo-image"></a></div>
+			<div class="close"><i class="fal fa-times"></i></div>
+		</div>
+		<div class="vertical-menu">
+			<div class="vertical_menu"></div>
+		</div>
+	</div>
+	<div class="menu__bar-popup-overlay"></div>
+	<div class="header__area two">
+		<div class="custom_container">
+			<div class="header__area-menubar">
+				<div class="header__area-menubar-left one">
+					<div class="header__area-menubar-left-logo">
+						<a href="{% url 'home'%}"><img src="{% static 'assets/logo3.png'%}" alt="logo"></a>
+					</div>
+				</div>
+				<div class="header__area-menubar-center">
+					<div class="header__area-menubar-center-menu">
+						<ul id="mobilemenu">
+							<li><a href="{% url 'home'%}">Ana SƏHİFƏ</a></li>
+							<li><a href="{% url 'haqqimizda'%}">Haqqımızda</a></li>
+							<li class="menu-item-has-children mega-menu-parent"><a href="{% url 'xidmetler'%}">XİDMƏTLƏR</a>
+								<div class="mega-menu">
+									{% for cat in menu_categories %}
+									<div class="mega-menu-column">
+										<h4 class="mega-menu-title">{% if cat.icon_class %}<i class="{{ cat.icon_class }}"></i> {% endif %}{{ cat.name }}</h4>
+										{% if cat.coming_soon %}
+										<p style="color: #999; font-style: italic; padding: 10px 0;">Tezliklə...</p>
+										{% else %}
+										<ul>
+											{% for item in cat.items.all %}
+											{% if item.is_active %}
+											<li><a href="{% if item.url %}{{ item.url }}{% else %}{% url 'category_detail' cat.slug %}{% endif %}">{{ item.name }}</a></li>
+											{% endif %}
+											{% endfor %}
+										</ul>
+										{% endif %}
+									</div>
+									{% endfor %}
+								</div>
+							</li>
+							<li><a href="{% url 'portfolio' %}">LAYİHƏLƏRİMİZ</a></li>
+							<li><a href="{% url 'yenilikler'%}">YENİLİKLƏR</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="header__area-menubar-right">
+					<div class="header__area-menubar-right-btn one">
+						<a class="build_button" href="{% url 'elaqe'%}">ƏLAQƏ<i class="flaticon-right-up"></i></a>
+					</div>
+					<div class="header__area-menubar-right-sidebar">
+						<div class="header__area-menubar-right-sidebar-icon"><i class="flaticon-menu-6"></i></div>
+					</div>
+					<div class="header__area-menubar-right-responsive-menu menu__bar"><i class="flaticon-menu-3"></i></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Breadcrumb -->
+	<div class="breadcrumb__area" style="background-image: url({% static 'coverr.png'%});">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12">
+					<div class="breadcrumb__area-content">
+						<h2>{{ category.name }}</h2>
+						<ul>
+							<li><a href="{% url 'home'%}">Ana Səhifə</a><i class="fa-regular fa-angle-right"></i></li>
+							<li><a href="{% url 'xidmetler'%}">Xidmətlər</a><i class="fa-regular fa-angle-right"></i></li>
+							<li>{{ category.name }}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main Content -->
+	<div class="section-padding">
+		<div class="container">
+			<div class="row">
+				<!-- Sidebar -->
+				<div class="col-lg-4 mb-40">
+					<div class="all__sidebar">
+						<div class="all__sidebar-item">
+							<h4>Xidmət Kateqoriyaları</h4>
+							<div class="all__sidebar-item-category">
+								<ul>
+									{% for cat in all_categories %}
+									<li>
+										<a href="{% url 'category_detail' cat.slug %}" {% if cat.slug == category.slug %}style="color: #f5b754; font-weight: 600;"{% endif %}>
+											{% if cat.icon_class %}<i class="{{ cat.icon_class }}" style="margin-right: 8px; width: 20px; text-align: center;"></i>{% endif %}
+											{{ cat.name }}
+											{% if cat.coming_soon %}<span style="font-size: 11px; color: #999; margin-left: 5px;">(Tezliklə)</span>{% endif %}
+											<i class="flaticon-right-up"></i>
+										</a>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+
+						{% if not category.coming_soon %}
+						<div class="all__sidebar-item" style="margin-top: 25px;">
+							<h4>Xidmətlər</h4>
+							<div style="padding: 0 20px 20px;">
+								{% for item in category.items.all %}
+								{% if item.is_active %}
+								<div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f0f0;">
+									<i class="{{ item.icon_class|default:'fas fa-check' }}" style="color: #f5b754; font-size: 14px; width: 18px; text-align: center;"></i>
+									<span style="font-size: 14px; color: #555;">{{ item.name }}</span>
+								</div>
+								{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+						{% endif %}
+
+						<div class="all__sidebar-item-help mb-25" style="background-image: url({% static 'assets/img/page/cta-1.jpg'%}); margin-top: 25px;">
+							<h3>Layihəniz var?</h3>
+							<p style="color: rgba(255,255,255,0.8); margin-bottom: 15px;">Pulsuz konsultasiya üçün bizimlə əlaqə saxlayın</p>
+							<a class="build_button mt-10" href="{% url 'elaqe'%}">ƏLAQƏ SAXLAYIN<i class="flaticon-right-up"></i></a>
+						</div>
+
+						<div class="all__sidebar-item" style="margin-top: 25px;">
+							<h4>Təqdimatı yükləyin</h4>
+							<div class="all__sidebar-item-download">
+								<ul>
+									<li><a href="{% static 'catalog.pdf'%}" target="_blank">Kataloqu yükləyin<span class="fal fa-arrow-to-bottom"></span></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Content -->
+				<div class="col-lg-8">
+					{% if category.image %}
+					<div style="border-radius: 16px; overflow: hidden; margin-bottom: 35px; box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+						<img src="{{ category.image.url }}" alt="{{ category.name }}" style="width: 100%; height: 400px; object-fit: cover;">
+					</div>
+					{% endif %}
+
+					<div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+						{% if category.icon_class %}
+						<div style="width: 55px; height: 55px; background: linear-gradient(135deg, #f5b754, #e8a230); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+							<i class="{{ category.icon_class }}" style="font-size: 22px; color: #fff;"></i>
+						</div>
+						{% endif %}
+						<h2 style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin: 0;">{{ category.name }}</h2>
+					</div>
+
+					{% if category.short_description %}
+					<p style="font-size: 17px; color: #666; line-height: 1.7; margin-bottom: 30px; padding-bottom: 25px; border-bottom: 1px solid #eee;">{{ category.short_description }}</p>
+					{% endif %}
+
+					{% if category.description %}
+					<div class="cat-description" style="margin-bottom: 40px;">
+						{{ category.description|safe }}
+					</div>
+					{% endif %}
+
+					{% if not category.coming_soon %}
+					<div style="margin-top: 50px;">
+						<h3 style="font-size: 24px; font-weight: 700; color: #1a1a1a; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #f5b754; display: inline-block;">Xidmətlərimiz</h3>
+						<div class="row">
+							{% for item in category.items.all %}
+							{% if item.is_active %}
+							<div class="col-md-6 mb-25">
+								<div class="detail-svc-card">
+									<div class="detail-svc-icon">
+										<i class="{{ item.icon_class|default:'fas fa-check-circle' }}"></i>
+									</div>
+									<div>
+										<h5 style="font-size: 16px; font-weight: 600; color: #1a1a1a; margin-bottom: 5px;">{{ item.name }}</h5>
+										{% if item.short_description %}
+										<p style="font-size: 13px; color: #888; margin: 0; line-height: 1.5;">{{ item.short_description }}</p>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+							{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+					{% endif %}
+
+					<!-- Why Choose Us -->
+					<div style="background: #f8f9fa; border-radius: 16px; padding: 40px; margin-top: 40px;">
+						<h3 style="font-size: 22px; font-weight: 700; color: #1a1a1a; margin-bottom: 25px;">Nə üçün bizi seçməlisiniz?</h3>
+						<div class="row">
+							<div class="col-sm-6 mb-20">
+								<div style="display: flex; gap: 12px; align-items: flex-start;">
+									<i class="fas fa-shield-alt" style="color: #f5b754; font-size: 20px; margin-top: 3px;"></i>
+									<div>
+										<h6 style="font-weight: 600; margin-bottom: 4px;">Zəmanətli Keyfiyyət</h6>
+										<p style="font-size: 13px; color: #777; margin: 0;">İşlərimizə tam zəmanət veririk</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 mb-20">
+								<div style="display: flex; gap: 12px; align-items: flex-start;">
+									<i class="fas fa-clock" style="color: #f5b754; font-size: 20px; margin-top: 3px;"></i>
+									<div>
+										<h6 style="font-weight: 600; margin-bottom: 4px;">Vaxtında Çatdırılma</h6>
+										<p style="font-size: 13px; color: #777; margin: 0;">Layihələr vaxtında tamamlanır</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 mb-20">
+								<div style="display: flex; gap: 12px; align-items: flex-start;">
+									<i class="fas fa-users" style="color: #f5b754; font-size: 20px; margin-top: 3px;"></i>
+									<div>
+										<h6 style="font-weight: 600; margin-bottom: 4px;">Peşəkar Komanda</h6>
+										<p style="font-size: 13px; color: #777; margin: 0;">10+ illik təcrübəli mütəxəssislər</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 mb-20">
+								<div style="display: flex; gap: 12px; align-items: flex-start;">
+									<i class="fas fa-handshake" style="color: #f5b754; font-size: 20px; margin-top: 3px;"></i>
+									<div>
+										<h6 style="font-weight: 600; margin-bottom: 4px;">Şəffaf Qiymətləndirmə</h6>
+										<p style="font-size: 13px; color: #777; margin: 0;">Gizli ödənişlər olmadan</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- CTA -->
+					<div style="background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border-radius: 16px; padding: 40px; margin-top: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+						<div>
+							<h4 style="color: #fff; font-size: 22px; font-weight: 700; margin-bottom: 5px;">Pulsuz Konsultasiya</h4>
+							<p style="color: #aaa; margin: 0;">Layihəniz haqqında məlumat alın, pulsuz smeta təklifi edək.</p>
+						</div>
+						<a href="{% url 'elaqe' %}" class="build_button">Əlaqə Saxlayın <i class="flaticon-right-up"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<style>
+	.all__sidebar-item-category ul li a i {
+		color: #f5b754 !important;
+		font-size: 18px;
+		transition: 0.4s;
+	}
+	.all__sidebar-item-category ul li a:hover {
+		color: #fff !important;
+	}
+	.all__sidebar-item-category ul li a:hover i {
+		color: #fff !important;
+	}
+	.all__sidebar-item-category ul li a:hover span {
+		color: rgba(255,255,255,0.7) !important;
+	}
+	.cat-description {
+		font-size: 15px;
+		line-height: 1.8;
+		color: #555;
+	}
+	.cat-description h3, .cat-description h4 {
+		color: #1a1a1a;
+		margin-top: 25px;
+		margin-bottom: 12px;
+	}
+	.cat-description ul {
+		padding-left: 0;
+		list-style: none;
+	}
+	.cat-description ul li {
+		position: relative;
+		padding: 6px 0 6px 24px;
+		color: #555;
+	}
+	.cat-description ul li::before {
+		content: '\f058';
+		font-family: 'Font Awesome 5 Pro', 'Font Awesome 5 Free';
+		font-weight: 900;
+		position: absolute;
+		left: 0;
+		color: #f5b754;
+		font-size: 14px;
+	}
+	.detail-svc-card {
+		display: flex;
+		gap: 15px;
+		align-items: flex-start;
+		padding: 20px;
+		background: #fff;
+		border: 1px solid #f0f0f0;
+		border-radius: 12px;
+		transition: all 0.3s ease;
+		height: 100%;
+	}
+	.detail-svc-card:hover {
+		border-color: #f5b754;
+		box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+		transform: translateY(-3px);
+	}
+	.detail-svc-icon {
+		width: 42px;
+		height: 42px;
+		background: linear-gradient(135deg, rgba(245,183,84,0.12), rgba(232,162,48,0.08));
+		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+	.detail-svc-icon i {
+		font-size: 18px;
+		color: #f5b754;
+	}
+	.detail-svc-card:hover .detail-svc-icon {
+		background: linear-gradient(135deg, #f5b754, #e8a230);
+	}
+	.detail-svc-card:hover .detail-svc-icon i {
+		color: #fff;
+	}
+	</style>
+
+	<!-- Footer -->
+	<div class="footer__two">
+		<div class="subscribe__area">
+			<div class="container">
+				<div class="row align-items-center subscribe__area-bg" style="background-image: url({% static 'assets/sub.jpg'%});">
+					<div class="col-lg-6 lg-mb-40 lg-t-center">
+						<div class="subscribe__area-left title_split_anim">
+							<h2><div style="position: relative; display: inline-block;">Siz xəyal edin, <br>biz inşa edək!</div></h2>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="subscribe__area-form wow fadeInUp" data-wow-delay=".4s">
+							<form id="subscribe-form">
+								<input type="email" name="email" id="subscribe-email" placeholder="Email ünvanı ..." style="padding-left:33px" required>
+								<button class="build_button" type="submit">Abunə Ol</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-4 col-lg-4 col-md-6">
+					<div class="footer__two-widget">
+						<div class="footer__two-widget-about">
+							<a href="{% url 'home'%}"><img src="{% static 'assets/logo3.png'%}" alt=""></a>
+							<p>Dizayn, smeta, planlama, şüşələnmə, fasad işləri, landşaft və bütün növ təmir-tikinti xidmətləri sahəsində peşəkar komandamızla sizə keyfiyyətli və innovativ həllər təklif edirik.</p>
+							<div class="footer__two-widget-about-social">
+								<ul>
+									<li><a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+									<li><a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+									<li><a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a></li>
+									<li><a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-4 col-md-6 md-mt-30">
+					<div class="footer__two-widget footer-border pl-60 md-pl-0">
+						<h4>Əlaqə Məlumatları</h4>
+						<div class="footer__two-widget-location">
+							<div class="footer__two-widget-location-item">
+								<div class="footer__two-widget-location-item-icon"><i class="flaticon-location"></i></div>
+								<div class="footer__two-widget-location-item-info">
+									<a href="https://www.google.com/maps">8 Noyabr pr. 15, 14-cü mərtəbə, ofis 90</a>
+								</div>
+							</div>
+							<div class="footer__two-widget-location-item" style="margin-top:10px">
+								<div class="footer__two-widget-location-item-icon"><i class="flaticon-mail"></i></div>
+								<div class="footer__two-widget-location-item-info">
+									<a href="mailto:office@pdc.az">office@pdc.az</a>
+								</div>
+							</div>
+							<div class="footer__two-widget-location-item" style="margin-top:10px">
+								<div class="footer__two-widget-location-item-icon"><i class="flaticon-phone"></i></div>
+								<div class="footer__two-widget-location-item-info">
+									<a href="tel:+994508990110">+994 50 899 0110</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-4 col-md-6 lg-mt-30">
+					<div class="footer__two-widget footer-border pl-60 lg-pl-0">
+						<h4>Sürətli Keçidlər</h4>
+						<div class="footer-widget-menu">
+							<ul>
+								<li><a href="{% url 'haqqimizda'%}">Şirkət Haqqında</a></li>
+								<li><a href="{% url 'xidmetler'%}">Xidmətlər</a></li>
+								<li><a href="{% url 'portfolio'%}">Görülən İşlər</a></li>
+								<li><a href="{% url 'yenilikler'%}">Yeniliklər</a></li>
+								<li><a href="{% url 'elaqe'%}">Bizimlə Əlaqə</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="copyright__area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="copyright__area-content t-center">
+						<p>© 2025 – Bütün hüquqlar qorunur <a style="text-decoration: none;" href="https://pdc.az">Premium Destiny Construction</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<style>
+	.whatsapp-widget { position: fixed; bottom: 90px; right: 20px; width: 60px; height: 60px; z-index: 1000; }
+	.whatsapp-widget img { width: 100%; height: 100%; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+	.whatsapp-widget img:hover { transform: scale(1.1); }
+	</style>
+	<a href="https://wa.me/+994508990110" class="whatsapp-widget" target="_blank">
+		<img src="/static/whatsapp.png" alt="WhatsApp">
+	</a>
+	<div class="scroll-up scroll-one">
+		<svg class="scroll-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102"><path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" /></svg>
+	</div>
+
+	<div id="subscribe-popup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;justify-content:center;align-items:center;">
+		<div style="background:#fff;padding:40px;border-radius:10px;text-align:center;max-width:400px;margin:20px;box-shadow:0 10px 30px rgba(0,0,0,0.2);">
+			<div id="popup-icon" style="font-size:50px;margin-bottom:20px;"></div>
+			<h3 id="popup-title" style="margin-bottom:15px;color:#333;"></h3>
+			<p id="popup-message" style="margin-bottom:25px;color:#666;"></p>
+			<button onclick="closeSubscribePopup()" class="build_button" style="border:none;cursor:pointer;padding:8px 22px 8px 16px;"><i class="fas fa-times"></i> Bağla</button>
+		</div>
+	</div>
+
+	<script src="{% static 'assets/js/jquery-3.6.0.min.js'%}"></script>
+	<script src="{% static 'assets/js/bootstrap.min.js'%}"></script>
+	<script src="{% static 'assets/js/jquery.counterup.min.js'%}"></script>
+	<script src="{% static 'assets/js/popper.min.js'%}"></script>
+	<script src="{% static 'assets/js/progressbar.min.js'%}"></script>
+	<script src="{% static 'assets/js/jquery.magnific-popup.min.js'%}"></script>
+	<script src="{% static 'assets/js/swiper-bundle.min.js'%}"></script>
+	<script src="{% static 'assets/js/jquery.waypoints.min.js'%}"></script>
+	<script src="{% static 'assets/js/isotope.pkgd.min.js'%}"></script>
+	<script src="{% static 'assets/js/wow.min.js'%}"></script>
+	<script src="{% static 'assets/js/gsap.js'%}"></script>
+	<script src="{% static 'assets/js/scroll-trigger.js'%}"></script>
+	<script src="{% static 'assets/js/split-text.js'%}"></script>
+	<script src="{% static 'assets/js/custom.js'%}"></script>
+
+	<script>
+	function showSubscribePopup(success, message) {
+		var popup = document.getElementById('subscribe-popup');
+		var icon = document.getElementById('popup-icon');
+		var title = document.getElementById('popup-title');
+		var msg = document.getElementById('popup-message');
+		if (success) {
+			icon.innerHTML = '<i class="fas fa-check-circle" style="color:#28a745;"></i>';
+			title.textContent = 'Uğurlu!';
+		} else {
+			icon.innerHTML = '<i class="fas fa-exclamation-circle" style="color:#dc3545;"></i>';
+			title.textContent = 'Diqqət!';
+		}
+		msg.textContent = message;
+		popup.style.display = 'flex';
+	}
+	function closeSubscribePopup() { document.getElementById('subscribe-popup').style.display = 'none'; }
+	document.getElementById('subscribe-popup').addEventListener('click', function(e) { if (e.target === this) closeSubscribePopup(); });
+	document.getElementById('subscribe-form').addEventListener('submit', function(e) {
+		e.preventDefault();
+		var email = document.getElementById('subscribe-email').value.trim();
+		if (!email) { showSubscribePopup(false, 'Zəhmət olmasa email ünvanınızı daxil edin.'); return; }
+		fetch('{% url "subscribe" %}', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+			body: JSON.stringify({email: email})
+		})
+		.then(response => response.json())
+		.then(data => { showSubscribePopup(data.success, data.message); if (data.success) document.getElementById('subscribe-email').value = ''; })
+		.catch(error => { showSubscribePopup(false, 'Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin.'); });
+	});
+	</script>
+</body>
+</html>

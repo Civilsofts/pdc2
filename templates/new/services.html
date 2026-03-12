@@ -30,22 +30,7 @@
 	<link rel="stylesheet" href="{% static 'assets/sass/style.css'%}">
 	
 	<!-- Mega Menu Styles -->
-	<style>
-	.mega-menu-parent { position: relative; }
-	.mega-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: #fff; min-width: 950px; padding: 30px; display: none; grid-template-columns: repeat(3, 1fr); gap: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); border-radius: 10px; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
-	.mega-menu-parent:hover .mega-menu { display: grid; opacity: 1; visibility: visible; }
-	.mega-menu-column { padding: 0 15px; border-right: 1px solid #eee; }
-	.mega-menu-column:last-child { border-right: none; }
-	.mega-menu-title { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #f5b754; display: flex; align-items: center; gap: 10px; }
-	.mega-menu-title i { color: #f5b754; font-size: 18px; }
-	.mega-menu-column ul { list-style: none; padding: 0; margin: 0; }
-	.mega-menu-column ul li { margin-bottom: 12px; }
-	.mega-menu-column ul li a { color: #555; font-size: 14px; text-decoration: none; transition: all 0.3s ease; display: flex; align-items: center; }
-	.mega-menu-column ul li a:before { content: ''; width: 6px; height: 6px; background: #ddd; border-radius: 50%; margin-right: 10px; transition: all 0.3s ease; }
-	.mega-menu-column ul li a:hover { color: #f5b754; padding-left: 5px; }
-	.mega-menu-column ul li a:hover:before { background: #f5b754; }
-	@media (max-width: 991px) { .mega-menu { position: static; transform: none; min-width: 100%; display: none !important; grid-template-columns: 1fr; box-shadow: none; padding: 15px; } .mega-menu-parent:hover .mega-menu { display: none !important; } .mega-menu-column { border-right: none; border-bottom: 1px solid #eee; padding: 15px 0; } .mega-menu-column:last-child { border-bottom: none; } }
-	</style>
+	<link rel="stylesheet" href="{% static 'assets/css/megamenu.css'%}">
 </head>
 
 <body>
@@ -154,39 +139,22 @@
 							</li>
 							<li class="menu-item-has-children mega-menu-parent"><a href="{% url 'xidmetler'%}">XİDMƏTLƏR</a>
                                 <div class="mega-menu">
+                                    {% for category in menu_categories %}
                                     <div class="mega-menu-column">
-                                        <h4 class="mega-menu-title"><i class="fas fa-industry"></i> Sənaye üçün</h4>
+                                        <h4 class="mega-menu-title">{% if category.icon_class %}<i class="{{ category.icon_class }}"></i> {% endif %}{{ category.name }}</h4>
+                                        {% if category.coming_soon %}
+                                        <p style="color: #999; font-style: italic; padding: 10px 0;">Tezliklə...</p>
+                                        {% else %}
                                         <ul>
-                                            <li><a href="{% url 'xidmetler'%}">Sənaye Binaları Tikintisi</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Anbar və Logistika Mərkəzləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Zavod və Fabrik İnşaatı</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Metal Konstruksiyalar</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Sənaye Ventilyasiyası</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Elektrik Sistemləri</a></li>
+                                            {% for item in category.items.all %}
+                                            {% if item.is_active %}
+                                            <li><a href="{% if item.url %}{{ item.url }}{% else %}{% url 'category_detail' category.slug %}{% endif %}">{{ item.name }}</a></li>
+                                            {% endif %}
+                                            {% endfor %}
                                         </ul>
+                                        {% endif %}
                                     </div>
-                                    <div class="mega-menu-column">
-                                        <h4 class="mega-menu-title"><i class="fas fa-home"></i> İndividual Xidmətlər</h4>
-                                        <ul>
-                                            <li><a href="{% url 'xidmetler'%}">Mənzil Təmiri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Villa və Ev Tikintisi</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">İnteryer Dizayn</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Mətbəx Dizaynı</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Hamam Təmiri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Balkon Şüşələnməsi</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="mega-menu-column">
-                                        <h4 class="mega-menu-title"><i class="fas fa-building"></i> Development</h4>
-                                        <ul>
-                                            <li><a href="{% url 'xidmetler'%}">Yaşayış Kompleksləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Biznes Mərkəzləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Ticarət Mərkəzləri</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Otel və Resort</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Layihələndirmə</a></li>
-                                            <li><a href="{% url 'xidmetler'%}">Smeta və Planlaşdırma</a></li>
-                                        </ul>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </li>
                             <li class=""><a href="{% url 'portfolio' %}">LAYİHƏLƏRİMİZ</a>
@@ -232,525 +200,183 @@
 		</div>
 	</div>       
     <!-- Breadcrumb Area End -->
-    
+
     <!-- Services Area Start -->
-    <div class="services__area section-padding">
+    <div class="section-padding" style="background: #f8f9fa;">
         <div class="container">
             <div class="row mb-60">
                 <div class="col-xl-12">
-                    <div class="services__area-title t-center">
-                        <span class="subtitle wow fadeInUp" data-wow-delay=".4s">Premium Destiny Construction</span>
-                        <h2 class="title_split_anim">XİDMƏTLƏRİMİZ</h2>
-                        <p class="wow fadeInUp" data-wow-delay=".8s">Tikinti və təmir sahəsində peşəkar və keyfiyyətli xidmət təqdim edirik. Bütün ehtiyaclarınız üçün hərtərəfli həllər.</p>
+                    <div class="t-center">
+                        <span class="subtitle wow fadeInUp" data-wow-delay=".2s">Premium Destiny Construction</span>
+                        <h2 class="title_split_anim" style="margin-bottom: 15px;">Xidmətlərimiz</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".4s" style="max-width: 650px; margin: 0 auto; color: #666;">Tikinti və təmir sahəsində peşəkar və keyfiyyətli xidmət təqdim edirik. Bütün ehtiyaclarınız üçün hərtərəfli həllər.</p>
                     </div>
                 </div>
             </div>
-            
-            <!-- Service Item: BETON VƏ YAPI İŞLƏRİ -->
-            <div class="row service-item-container mb-80">
-                <div class="col-lg-6">
-                    <div class="service-image wow fadeInLeft" data-wow-delay=".4s">
-                        <img src="{% static 'beton.jpg' %}" alt="Beton və Yapı İşləri" class="rounded">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="service-content wow fadeInRight" data-wow-delay=".6s">
-                        <div class="service-title">
-                            <h2>BETON VƏ YAPI İŞLƏRİ</h2>
-                            <div class="title-divider"></div>
-                        </div>
-                        <div class="service-description">
-                            <h4>Beton İşləri:</h4>
-                            <ul class="service-list">
-                                <li><i class="fas fa-check-circle"></i> Betonun Qarışdırılması və Dökülməsi</li>
-                                <li><i class="fas fa-check-circle"></i> Beton Plitələrin Döşənməsi</li>
-                                <li><i class="fas fa-check-circle"></i> Beton Bazasının Hazırlanması</li>
-                                <li><i class="fas fa-check-circle"></i> Beton Armaturun Quraşdırılması</li>
-                                <li><i class="fas fa-check-circle"></i> Beton Təmiri və Yenidənqurma</li>
-                                <li><i class="fas fa-check-circle"></i> Beton Qatlarının Təmiri və Bərpası</li>
-                                <li><i class="fas fa-check-circle"></i> Beton Lövhələrin Quraşdırılması</li>
-                                <li><i class="fas fa-check-circle"></i> Beton Divarların Tikilməsi</li>
-                                <li><i class="fas fa-check-circle"></i> Beton Dəmir Konstruksiyalarının Hazırlanması</li>
-                            </ul>
-                            <div class="service-button mt-30">
-                                <a href="{% url 'elaqe' %}" class="build_button">BİZİMLƏ ƏLAQƏ<i class="flaticon-right-up"></i></a>
+
+            {% for cat in categories %}
+            <div class="svc-category-block wow fadeInUp" data-wow-delay=".{{ forloop.counter }}s" style="margin-bottom: 80px;">
+                <div class="row align-items-center mb-40">
+                    <div class="col-lg-8">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            {% if cat.icon_class %}
+                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #f5b754 0%, #e8a230 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <i class="{{ cat.icon_class }}" style="font-size: 24px; color: #fff;"></i>
+                            </div>
+                            {% endif %}
+                            <div>
+                                <h3 style="font-size: 28px; font-weight: 700; color: #1a1a1a; margin-bottom: 5px;">{{ cat.name }}</h3>
+                                {% if cat.short_description %}
+                                <p style="color: #777; margin: 0; font-size: 15px;">{{ cat.short_description }}</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                        {% if not cat.coming_soon %}
+                        <a href="{% url 'category_detail' cat.slug %}" class="build_button" style="font-size: 14px;">Ətraflı Bax <i class="flaticon-right-up"></i></a>
+                        {% endif %}
+                    </div>
                 </div>
+
+                {% if cat.coming_soon %}
+                <div style="background: #fff; border-radius: 20px; padding: 60px 40px; text-align: center; box-shadow: 0 5px 30px rgba(0,0,0,0.06);">
+                    <i class="fas fa-hard-hat" style="font-size: 48px; color: #f5b754; margin-bottom: 20px;"></i>
+                    <h4 style="color: #333; margin-bottom: 10px;">Tezliklə...</h4>
+                    <p style="color: #999; max-width: 400px; margin: 0 auto;">Bu sahədə xidmətlərimiz tezliklə əlavə olunacaq. Bizi izləyin!</p>
+                </div>
+                {% else %}
+                <div class="row">
+                    {% for item in cat.items.all %}
+                    {% if item.is_active %}
+                    <div class="col-lg-4 col-md-6 mb-30">
+                        <a href="{% url 'category_detail' cat.slug %}" class="svc-card" style="text-decoration: none;">
+                            <div class="svc-card-inner">
+                                <div class="svc-card-icon">
+                                    <i class="{{ item.icon_class|default:'fas fa-tools' }}"></i>
+                                </div>
+                                <h5 class="svc-card-title">{{ item.name }}</h5>
+                                {% if item.short_description %}
+                                <p class="svc-card-desc">{{ item.short_description }}</p>
+                                {% endif %}
+                                <span class="svc-card-link">Ətraflı <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
-            
-            <!-- Service Item: FASAD VƏ XARİCİ İŞLƏR -->
-            <div class="row service-item-container flex-row-reverse">
-                <div class="col-lg-6">
-                    <div class="service-image wow fadeInRight" data-wow-delay=".4s">
-                        <img src="{% static 'fasad.jpg' %}" alt="Fasad və Xarici İşlər" class="rounded">
-                    </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 80px 0;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h3 style="color: #fff; font-size: 32px; font-weight: 700; margin-bottom: 10px;">Layihəniz var?</h3>
+                    <p style="color: #aaa; font-size: 16px; margin: 0;">Bizimlə əlaqə saxlayın, pulsuz konsultasiya və smeta xidməti təqdim edək.</p>
                 </div>
-                <div class="col-lg-6">
-                    <div class="service-content wow fadeInLeft" data-wow-delay=".6s">
-                        <div class="service-title">
-                            <h2>FASAD VƏ XARİCİ İŞLƏR</h2>
-                            <div class="title-divider"></div>
-                        </div>
-                        <div class="service-description">
-                            <h4>Fasadların Yenilənməsi və Tikintisi:</h4>
-                            <ul class="service-list">
-                                <li><i class="fas fa-check-circle"></i> Seramik və Təbii Daş Fasad Örtükləri: Təbii daş və seramik materiallarla fasad örtüyü.</li>
-                                <li><i class="fas fa-check-circle"></i> Kompozit və Metal Fasad Sistemləri: Modern kompozit materiallarla fasadların tikilməsi.</li>
-                                <li><i class="fas fa-check-circle"></i> Alüminium Fasad Sistemi: Dəmir, alüminium və kompozit materiallarla fasadın tikilməsi.</li>
-                                <li><i class="fas fa-check-circle"></i> Şüşə Fasad Örtükləri: Struktur şüşə fasadların tikilməsi və quraşdırılması.</li>
-                                <li><i class="fas fa-check-circle"></i> Havalandırılan Fasadlar: Havanın sərbəst hərəkət etməsi üçün fasadların hazırlanması.</li>
-                            </ul>
-                            <div class="service-button mt-30">
-                                <a href="{% url 'elaqe' %}" class="build_button">BİZİMLƏ ƏLAQƏ<i class="flaticon-right-up"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Service Item: PƏNCƏRƏ VƏ QAPI SİSTEMLƏRİ -->
-            <div class="row service-item-container mb-80">
-                <div class="col-lg-6">
-                    <div class="service-image wow fadeInLeft" data-wow-delay=".4s">
-                        <img src="{% static 'glass.jpg' %}" alt="Pəncərə və Qapı Sistemləri" class="rounded">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="service-content wow fadeInRight" data-wow-delay=".6s">
-                        <div class="service-title">
-                            <h2>PƏNCƏRƏ VƏ QAPI SİSTEMLƏRİ</h2>
-                            <div class="title-divider"></div>
-                        </div>
-                        <div class="service-description">
-                            <h4>Pəncərə və Qapılar:</h4>
-                            <ul class="service-list">
-                                <li><i class="fas fa-check-circle"></i> PVC və Alüminium: Müxtəlif keyfiyyətli materiallardan pəncərə və qapı sistemləri.</li>
-                                <li><i class="fas fa-check-circle"></i> İzolyasiya olunmuş və Yanğına davamlı: Xüsusi təhlükəsizlik tələblərinə uyğun sistemlər.</li>
-                                <li><i class="fas fa-check-circle"></i> Sürgülü və Cam Balkon Sistemləri: Müasir və funksional şüşə balkon həlləri.</li>
-                                <li><i class="fas fa-check-circle"></i> Hebeschiebe Sürgülü Sistemləri: Yüksək keyfiyyətli sürgülü qapı mexanizmi.</li>
-                                <li><i class="fas fa-check-circle"></i> Şüşə Ara Kəsmələri: Otaqların müasir bölünməsi üçün şüşə sistemləri.</li>
-                                <li><i class="fas fa-check-circle"></i> Şüşə Tavan Sistemləri: Təbii işıq üçün optimal həllər.</li>
-                            </ul>
-                            <div class="service-button mt-30">
-                                <a href="{% url 'elaqe' %}" class="build_button">BİZİMLƏ ƏLAQƏ<i class="flaticon-right-up"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Service Item: TİKİNTİ VƏ YENİDƏNQURMA İŞLƏRİ -->
-            <div class="row service-item-container flex-row-reverse mb-80">
-                <div class="col-lg-6">
-                    <div class="service-image wow fadeInRight" data-wow-delay=".4s">
-                        <img src="{% static 'repair.jpg' %}" alt="Tikinti və Yenidənqurma İşləri" class="rounded">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="service-content wow fadeInLeft" data-wow-delay=".6s">
-                        <div class="service-title">
-                            <h2>TİKİNTİ VƏ YENİDƏNQURMA İŞLƏRİ</h2>
-                            <div class="title-divider"></div>
-                        </div>
-                        <div class="service-description">
-                            <h4>Təmir və İnşaat İşləri:</h4>
-                            <ul class="service-list">
-                                <li><i class="fas fa-check-circle"></i> Divar və Tavan Təmir İşləri: Beton və daş divarların təmiri, alçıpan və gips karton tavanların montajı.</li>
-                                <li><i class="fas fa-check-circle"></i> Sənaye və Kommersiya Binalarının Təmiri və Tikintisi: Qeyri-yaşayış obyektlərinin inşası, ofis və mağaza təmiri.</li>
-                                <li><i class="fas fa-check-circle"></i> Sahə Planlaşdırılması və Podratçı İşləri: Bütün inşaat proseslərinin mükəmməl idarə olunması və yerində izlənməsi.</li>
-                            </ul>
-                            <div class="service-button mt-30">
-                                <a href="{% url 'elaqe' %}" class="build_button">BİZİMLƏ ƏLAQƏ<i class="flaticon-right-up"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Service Item: DAXİLİ TƏMİR İŞLƏRİ -->
-            <div class="row service-item-container mb-80">
-                <div class="col-lg-6">
-                    <div class="service-image wow fadeInLeft" data-wow-delay=".4s">
-                        <img src="{% static 'repair2.jpg' %}" alt="Daxili Təmir İşləri" class="rounded">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="service-content wow fadeInRight" data-wow-delay=".6s">
-                        <div class="service-title">
-                            <h2>DAXİLİ TƏMİR İŞLƏRİ</h2>
-                            <div class="title-divider"></div>
-                        </div>
-                        <div class="service-description">
-                            <h4>Döşəmə və Divar İşləri:</h4>
-                            <ul class="service-list">
-                                <li><i class="fas fa-check-circle"></i> Laminat və Parket Döşənməsi</li>
-                                <li><i class="fas fa-check-circle"></i> Keramika və Kafel Döşəmələri</li>
-                                <li><i class="fas fa-check-circle"></i> Divar Kağızlarının Vurulması</li>
-                                <li><i class="fas fa-check-circle"></i> Boya İşləri</li>
-                            </ul>
-                            <h4>Tavan İşləri:</h4>
-                            <ul class="service-list">
-                                <li><i class="fas fa-check-circle"></i> Alçıpan Tavanların Montajı: Müxtəlif alçıpan həlləri ilə tavanların quraşdırılması.</li>
-                                <li><i class="fas fa-check-circle"></i> Asma Tavanlar və Dartma Tavanlar</li>
-                            </ul>
-                            <div class="service-button mt-30">
-                                <a href="{% url 'elaqe' %}" class="build_button">BİZİMLƏ ƏLAQƏ<i class="flaticon-right-up"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Service Item: İSTİLİK, ELEKTRİK VƏ SANTEXNİKA İŞLƏRİ -->
-            <div class="row service-item-container flex-row-reverse mb-80">
-                <div class="col-lg-6">
-                    <div class="service-image wow fadeInRight" data-wow-delay=".4s">
-                        <img src="{% static 'heat.jpg' %}" alt="İstilik, Elektrik və Santexnika İşləri" class="rounded">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="service-content wow fadeInLeft" data-wow-delay=".6s">
-                        <div class="service-title">
-                            <h2>İSTİLİK, ELEKTRİK VƏ SANTEXNİKA İŞLƏRİ</h2>
-                            <div class="title-divider"></div>
-                        </div>
-                        <div class="service-description">
-                            <h4>İsitmə, Soyutma və Havalandırma Sistemləri:</h4>
-                            <ul class="service-list">
-                                <li><i class="fas fa-check-circle"></i> İstilik və Soyutma Sistemlərinin Quraşdırılması: Kombi, radiator və kondisioner sistemlərinin montajı.</li>
-                                <li><i class="fas fa-check-circle"></i> Elektrik İşləri: Elektrik naqillərinin çəkilməsi, elektrik panellərinin və lampaların quraşdırılması.</li>
-                                <li><i class="fas fa-check-circle"></i> Santexnika İşləri: Su və kanalizasiya borularının çəkilməsi, avadanlıqların montajı.</li>
-                            </ul>
-                            <div class="service-button mt-30">
-                                <a href="{% url 'elaqe' %}" class="build_button">BİZİMLƏ ƏLAQƏ<i class="flaticon-right-up"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Service Item: ƏLAVƏ XİDMƏTLƏR -->
-            <div class="row service-item-container">
-                <div class="col-lg-6">
-                    <div class="service-image wow fadeInLeft" data-wow-delay=".4s">
-                        <img src="{% static 'garden.jpg' %}" alt="Əlavə Xidmətlər" class="rounded">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="service-content wow fadeInRight" data-wow-delay=".6s">
-                        <div class="service-title">
-                            <h2>ƏLAVƏ XİDMƏTLƏR</h2>
-                            <div class="title-divider"></div>
-                        </div>
-                        <div class="service-description">
-                            <h4>Metal və Dəmir Konstruksiyalar:</h4>
-                            <ul class="service-list">
-                                <li><i class="fas fa-check-circle"></i> Metal Konstruksiyalar və Məhəccərlər: Dəmir və alüminium konstruksiyaların hazırlanması və montajı.</li>
-                                <li><i class="fas fa-check-circle"></i> Sənaye Qapıları və Dəmir Qapılar: Sənaye və anbar işləri üçün xüsusi qapı sistemlərinin hazırlanması.</li>
-                            </ul>
-                            <h4>Landşaft və Ekoloji Xidmətlər:</h4>
-                            <ul class="service-list">
-                                <li><i class="fas fa-check-circle"></i> Bağçılıq və Yaşıl Zonaların Təşkili: Sahə üzərində bağçılıq işləri və yaşıl zəncirlər yaratmaq.</li>
-                                <li><i class="fas fa-check-circle"></i> Süni Şəlalələr və Göllər: Bina ətrafında su elementləri.</li>
-                            </ul>
-                            <h4>Xarici və Daxili Dekorasiya:</h4>
-                            <ul class="service-list">
-                                <li><i class="fas fa-check-circle"></i> Mebel İstehsalı və Montajı: Xüsusi sifarişlə mebelin hazırlanması.</li>
-                                <li><i class="fas fa-check-circle"></i> Xüsusi İntyer Dizaynı və İstifadəçi Tələblərinə Uyğun Dizaynlar.</li>
-                            </ul>
-                            <div class="service-button mt-30">
-                                <a href="{% url 'elaqe' %}" class="build_button">BİZİMLƏ ƏLAQƏ<i class="flaticon-right-up"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                    <a href="{% url 'elaqe' %}" class="build_button">Əlaqə Saxlayın <i class="flaticon-right-up"></i></a>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <style>
-    /* Enhanced Service styles */
-    .services__area-title {
-        position: relative;
-        margin-bottom: 40px;
+    .svc-card {
+        display: block;
+        height: 100%;
     }
-    
-    .services__area-title h2 {
-        position: relative;
-        display: inline-block;
-    }
-    
-    .services__area-title h2:after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -10px;
-        height: 4px;
-        width: 80px;
-        background: var(--primary-color, #ffbf43);
-        margin: 0 auto;
-        border-radius: 2px;
-    }
-    
-    .services-nav {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 30px;
-        flex-wrap: wrap;
-    }
-    
-    .services-nav-item {
-        margin: 5px;
-        padding: 10px 20px;
-        background-color: #f8f8f8;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: 500;
-        border: 1px solid #eee;
-    }
-    
-    .services-nav-item:hover,
-    .services-nav-item.active {
-        background-color: var(--primary-color, #ffbf43);
-        color: white;
-    }
-    
-    .service-item-container {
-        position: relative;
-        margin-bottom: 60px;
-        align-items: center;
-        padding: 20px 0;
-        border-radius: 15px;
-        overflow: hidden;
-    }
-    
-    .service-item-container:after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, transparent, var(--primary-color, #ffbf43), transparent);
-        opacity: 0.2;
-    }
-    
-    .service-item-container:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 150px;
-        height: 150px;
-        background: radial-gradient(circle, rgba(255, 191, 67, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
-        border-radius: 50%;
-        z-index: -1;
-    }
-    
-    .service-image {
+    .svc-card-inner {
+        background: #fff;
+        border-radius: 16px;
+        padding: 35px 30px;
+        height: 100%;
         position: relative;
         overflow: hidden;
-        border-radius: 15px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-    
-    .service-image:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.2);
-        opacity: 0;
-        transition: all 0.3s ease;
-        z-index: 1;
-    }
-    
-    .service-image:hover:before {
-        opacity: 1;
-    }
-    
-    .service-image img {
-        width: 100%;
-        height: auto;
-        transition: all 0.6s ease;
-        transform: scale(1.01);
-    }
-    
-    .service-image:hover img {
-        transform: scale(1.08);
-    }
-    
-    .service-category-label {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: rgba(255, 191, 67, 0.9);
-        color: white;
-        padding: 5px 15px;
-        border-radius: 30px;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        z-index: 2;
-        box-shadow: 0 5px 15px rgba(255, 191, 67, 0.3);
-    }
-    
-    .service-title {
-        position: relative;
-        padding-bottom: 15px;
-    }
-    
-    .service-title h2 {
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 12px;
-        color: #222;
-        position: relative;
-        display: inline-block;
-    }
-    
-    .title-divider {
-        width: 70px;
-        height: 3px;
-        background: var(--primary-color, #ffbf43);
-        margin-bottom: 15px;
-        border-radius: 1.5px;
-        position: relative;
-    }
-    
-    .title-divider:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: -3px;
-        width: 25px;
-        height: 9px;
-        background: var(--primary-color, #ffbf43);
-        border-radius: 4.5px;
-    }
-    
-    .service-description {
-        position: relative;
-        padding-left: 15px;
-        border-left: 1px dashed rgba(255, 191, 67, 0.2);
-    }
-    
-    .service-description h4 {
-        font-size: 20px;
-        margin: 15px 0 10px;
-        color: #333;
-        position: relative;
-        display: inline-block;
-    }
-    
-    .service-description h4:before {
-        content: "";
-        position: absolute;
-        left: -15px;
-        top: 50%;
-        width: 8px;
-        height: 8px;
-        background: var(--primary-color, #ffbf43);
-        border-radius: 50%;
-        transform: translateY(-50%);
-    }
-    
-    .service-list {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 15px 0;
-    }
-    
-    .service-list li {
-        position: relative;
-        padding: 6px 0 6px 28px;
-        margin-bottom: 5px;
-        font-size: 15px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-        transition: all 0.3s ease;
-    }
-    
-    .service-list li:hover {
-        padding-left: 32px;
-        background-color: rgba(255, 191, 67, 0.02);
-        border-radius: 5px;
-    }
-    
-    .service-list li i {
-        position: absolute;
-        left: 0;
-        top: 8px;
-        color: var(--primary-color, #ffbf43);
-        font-size: 16px;
-        transition: all 0.3s ease;
-    }
-    
-    .service-list li:hover i {
-        left: 4px;
-        transform: scale(1.1);
-    }
-    
-    .service-button {
-        margin-top: 20px;
-    }
-    
-    .service-button .build_button {
-        background-color: var(--primary-color, #ffbf43);
-    }
-    
-    .service-button .build_button:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 5px 25px rgba(0,0,0,0.05);
         transition: all 0.4s ease;
-        z-index: -1;
+        border: 1px solid #f0f0f0;
     }
-    
-    .service-button .build_button:hover:before {
-        left: 100%;
+    .svc-card-inner:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        border-color: #f5b754;
     }
-    
-    @media (max-width: 991px) {
-        .service-item-container {
-            margin-bottom: 80px;
-            padding: 20px 0;
-        }
-        .service-image {
-            margin-bottom: 40px;
-        }
-        .service-title h2 {
-            font-size: 30px;
-        }
-        .service-description {
-            padding-left: 15px;
-        }
+    .svc-card-inner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #f5b754, #e8a230);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
     }
-    
+    .svc-card-inner:hover::before {
+        transform: scaleX(1);
+    }
+    .svc-card-icon {
+        width: 55px;
+        height: 55px;
+        background: linear-gradient(135deg, rgba(245,183,84,0.12) 0%, rgba(232,162,48,0.08) 100%);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        transition: all 0.4s ease;
+    }
+    .svc-card-inner:hover .svc-card-icon {
+        background: linear-gradient(135deg, #f5b754 0%, #e8a230 100%);
+    }
+    .svc-card-icon i {
+        font-size: 22px;
+        color: #f5b754;
+        transition: all 0.4s ease;
+    }
+    .svc-card-inner:hover .svc-card-icon i {
+        color: #fff;
+    }
+    .svc-card-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1a1a1a !important;
+        margin-bottom: 10px;
+        text-transform: none !important;
+    }
+    .svc-card-desc {
+        font-size: 14px;
+        color: #777 !important;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    .svc-card-link {
+        font-size: 14px;
+        font-weight: 600;
+        color: #f5b754 !important;
+        text-transform: none !important;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+    }
+    .svc-card-link i {
+        font-size: 12px;
+        transition: transform 0.3s ease;
+    }
+    .svc-card-inner:hover .svc-card-link i {
+        transform: translateX(4px);
+    }
     @media (max-width: 767px) {
-        .service-title h2 {
-            font-size: 26px;
-        }
-        .service-description h4 {
-            font-size: 20px;
-        }
-        .service-description {
-            padding-left: 10px;
-        }
-        .service-category-label {
-            top: 10px;
-            right: 10px;
-        }
+        .svc-category-block { margin-bottom: 50px !important; }
     }
     </style>
     <!-- Services Area End -->

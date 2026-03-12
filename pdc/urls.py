@@ -29,6 +29,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('haqqimizda/', haqqimizda.haqqimizda, name='haqqimizda'),
     path('xidmetler/', xidmetler.xidmetler, name='xidmetler'),
+    path('xidmetler/kateqoriya/<slug:slug>/', xidmetler.category_detail, name='category_detail'),
     path('korporativ-xidmetler/', xidmetler.kxidmetler, name='kxidmetler'),
     path('xidmetler/<int:id>', xidmetler.xidmetlerdetail, name='xidmetlerdetail'),
     path('xidmetler/sub/<int:id>', xidmetler.xidmetlerdetail, name='sub_category'),
